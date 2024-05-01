@@ -2,12 +2,12 @@
 //#define lab4_1
 //#define lab4_2
 //#define lab4_3
-//#define lab4_4
+#define lab4_4
 //#define lab4_5
 //#define lab4_6
 //#define lab4_7
 //#define lab4_8
-#define lab4_9
+//#define lab4_9
 
 //Задача 1---------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef lab4_1
@@ -105,8 +105,8 @@ int main()
 //Задача 4-----------------------------------------------------------------------------------------------------------------------------------------------
 #include <cstdlib> // для функций rand() и srand()
 #include <ctime> // для функции time()
-#define SIZE1 15
-#define SIZE2 15
+#define SIZE1 8
+#define SIZE2 8
 
 
 //Функция для подсчета суммы выше главной диагонали
@@ -125,13 +125,13 @@ int sum_diagDiagonal(int arr[][SIZE2], int size1, int size2)
 int main()
 {
     srand(static_cast<int>(time(0)));  // устанавливаем значение системных часов в качестве стартового числа
-    int arr[SIZE1][SIZE2];             //Создаем двумерный массив 15х15
+    int arr[SIZE1][SIZE2];             //Создаем двумерный массив 8х8
 
     //Заполняем массив случайными числами
     for(int i = 0; i < SIZE1; ++i)
     {
         for(int j = 0; j < SIZE2; ++j)
-            arr[i][j] = rand();
+            arr[i][j] = rand()%31-15;
 
     }
 
@@ -165,15 +165,35 @@ int main()
 //Задача 6---------------------------------------------------------------------------------------------------------------------------------------------
 #ifdef lab4_6
 //----------------------------------------------------------------------------------------------------------------------------------------------------
+//Очистка буфера cin
+#define BUFF_CLEAR std::cin.ignore(10000, '\n')
 
+//Функция верификации ввода
+void inputVerification(int& input)
+{
+    while (std::cin.fail() || input < 0)
+    {
+        std::cin.clear();
+        BUFF_CLEAR;
+        std::cout<<"Вводите положительные числовые значения\n";
+        std::cin>>input;
+    }
+}
+
+//Вычисление факториала
 int factorial(int number)
 {
     if(number ==1) return number;
     else return number*factorial(number-1);
 }
+
 int main()
 {
-    std::cout<<factorial(5);
+    int number;
+    std::cout<<"Введите целое положительное число(намите Enter для ввода) ";
+    std::cin>>number;
+    inputVerification(number);
+    std::cout<<factorial(number);
     return 0;
 }
 
